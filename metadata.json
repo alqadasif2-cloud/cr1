@@ -1,0 +1,6 @@
+{
+  "name": "Crypto Wallet",
+  "description": "محفظة عملات رقمية متطورة تدعم الحسابات المتعددة، العناوين المشفرة 0x، قفل الأرصدة المؤقت، وتطبيق أندرويد المتكامل",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

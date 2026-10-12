@@ -1,0 +1,215 @@
+{
+  "users": [
+    {
+      "id": "usr_sam_owner",
+      "username": "sam",
+      "name": "Sam",
+      "passwordHash": "d614cb6fd259a470290724a9ec090993d2aad0d127dec2a1aadc88a1fa1bc5e7",
+      "role": "owner",
+      "createdAt": 1790960230261,
+      "status": "active",
+      "walletId": "wlt_sam_owner"
+    },
+    {
+      "id": "usr_eslam_alqadasi",
+      "username": "eslam alqadasi",
+      "name": "Eslam",
+      "passwordHash": "aaa7b59dfe38ce27a5bf19e00093790fd409e238847b4b4a664002554a5c5e3c",
+      "role": "user",
+      "createdAt": 1791392230261,
+      "status": "active",
+      "walletId": "wlt_eslam_alqadasi"
+    }
+  ],
+  "wallets": [
+    {
+      "id": "wlt_sam_owner",
+      "userId": "usr_sam_owner",
+      "address": "0x7a91c4e82d6f3b105a9e7c2d8f41b6039a5d72e1",
+      "receiveCode": "sam1000usd",
+      "createdAt": 1790960230261,
+      "balances": {
+        "BTC": {
+          "available": 0,
+          "locked": 0
+        },
+        "ETH": {
+          "available": 0,
+          "locked": 0
+        },
+        "USDT": {
+          "available": 1000,
+          "locked": 0
+        }
+      }
+    },
+    {
+      "id": "wlt_eslam_alqadasi",
+      "userId": "usr_eslam_alqadasi",
+      "address": "0x3f82b1d94c7e6a502b8d9c1e7a50f3b48c2e61a9",
+      "receiveCode": "eslamwallet",
+      "createdAt": 1791392230261,
+      "balances": {
+        "BTC": {
+          "available": 0,
+          "locked": 0
+        },
+        "ETH": {
+          "available": 0,
+          "locked": 0
+        },
+        "USDT": {
+          "available": 0,
+          "locked": 0
+        }
+      }
+    }
+  ],
+  "transactions": [
+    {
+      "id": "tx_hist_eslam_1",
+      "senderUserId": "usr_historical_seed",
+      "recipientUserId": "usr_eslam_alqadasi",
+      "senderAddress": "0x0000000000000000000000000000000000000001",
+      "recipientAddress": "0x3f82b1d94c7e6a502b8d9c1e7a50f3b48c2e61a9",
+      "senderName": "إيداع افتراضي",
+      "recipientName": "Eslam",
+      "currency": "USDT",
+      "amount": 100,
+      "fee": 0,
+      "lockDurationSeconds": 0,
+      "createdAt": 1728274260000,
+      "unlockAt": null,
+      "unlockedAt": null,
+      "status": "COMPLETED",
+      "source": "historical_seed",
+      "isHistorical": true,
+      "historicalDateText": "7 أكتوبر",
+      "historicalTimeText": "5:11 صباحًا",
+      "historicalNote": "سجل تاريخي مدخل مسبقًا في بيئة المحاكاة.",
+      "note": "استلام مبلغ",
+      "txHash": "0x7a81000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "id": "tx_hist_eslam_2",
+      "senderUserId": "usr_historical_seed",
+      "recipientUserId": "usr_eslam_alqadasi",
+      "senderAddress": "0x0000000000000000000000000000000000000002",
+      "recipientAddress": "0x3f82b1d94c7e6a502b8d9c1e7a50f3b48c2e61a9",
+      "senderName": "إيداع افتراضي",
+      "recipientName": "Eslam",
+      "currency": "USDT",
+      "amount": 50,
+      "fee": 0,
+      "lockDurationSeconds": 0,
+      "createdAt": 1728460200000,
+      "unlockAt": null,
+      "unlockedAt": null,
+      "status": "COMPLETED",
+      "source": "historical_seed",
+      "isHistorical": true,
+      "historicalDateText": "9 أكتوبر",
+      "historicalTimeText": "8:30 صباحًا",
+      "historicalNote": "سجل تاريخي مدخل مسبقًا في بيئة المحاكاة.",
+      "note": "استلام مبلغ",
+      "txHash": "0x7a81000000000000000000000000000000000000000000000000000000000002"
+    },
+    {
+      "id": "tx_hist_eslam_3",
+      "senderUserId": "usr_historical_seed",
+      "recipientUserId": "usr_eslam_alqadasi",
+      "senderAddress": "0x0000000000000000000000000000000000000003",
+      "recipientAddress": "0x3f82b1d94c7e6a502b8d9c1e7a50f3b48c2e61a9",
+      "senderName": "إيداع افتراضي",
+      "recipientName": "Eslam",
+      "currency": "USDT",
+      "amount": 150,
+      "fee": 0,
+      "lockDurationSeconds": 0,
+      "createdAt": 1728484500000,
+      "unlockAt": null,
+      "unlockedAt": null,
+      "status": "COMPLETED",
+      "source": "historical_seed",
+      "isHistorical": true,
+      "historicalDateText": "9 أكتوبر",
+      "historicalTimeText": "3:15 مساءً",
+      "historicalNote": "سجل تاريخي مدخل مسبقًا في بيئة المحاكاة.",
+      "note": "استلام مبلغ",
+      "txHash": "0x7a81000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+      "id": "tx_hist_eslam_4",
+      "senderUserId": "usr_sami_historical",
+      "recipientUserId": "usr_eslam_alqadasi",
+      "senderAddress": "0x0000000000000000000000000000000000000004",
+      "recipientAddress": "0x3f82b1d94c7e6a502b8d9c1e7a50f3b48c2e61a9",
+      "senderName": "Sami",
+      "associatedSender": "Sami",
+      "recipientName": "Eslam",
+      "currency": "USDT",
+      "amount": 300,
+      "fee": 0,
+      "lockDurationSeconds": 0,
+      "createdAt": 1728505200000,
+      "unlockAt": null,
+      "unlockedAt": null,
+      "status": "COMPLETED",
+      "source": "historical_seed",
+      "isHistorical": true,
+      "isRefund": true,
+      "historicalDateText": "9 أكتوبر",
+      "historicalTimeText": "9:00 مساءً",
+      "historicalNote": "سجل تاريخي مدخل مسبقًا في بيئة المحاكاة.",
+      "note": "استرجاع مبلغ مرتبط بالمرسل Sami",
+      "txHash": "0x7a81000000000000000000000000000000000000000000000000000000000004"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_welcome_sam",
+      "userId": "usr_sam_owner",
+      "title": "مرحباً مالك النظام Sam",
+      "titleAr": "مرحباً مالك النظام Sam",
+      "message": "تم تفعيل حساب المالك بنجاح برصيد ابتدائي 1,000 USD وصلاحيات إدارة النظام الكاملة.",
+      "messageAr": "تم تفعيل حساب المالك بنجاح برصيد ابتدائي 1,000 USD وصلاحيات إدارة النظام الكاملة.",
+      "type": "SYSTEM",
+      "createdAt": 1791824230261,
+      "read": false
+    },
+    {
+      "id": "notif_welcome_eslam",
+      "userId": "usr_eslam_alqadasi",
+      "title": "مرحباً بك Eslam",
+      "titleAr": "مرحباً بك Eslam",
+      "message": "تم تفعيل محفظتك المستقلة برصيد ابتدائي 0.00 USD مع تسجيل العمليات التاريخية في سجل نشاطك.",
+      "messageAr": "تم تفعيل محفظتك المستقلة برصيد ابتدائي 0.00 USD مع تسجيل العمليات التاريخية في سجل نشاطك.",
+      "type": "SYSTEM",
+      "createdAt": 1791824230261,
+      "read": false
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "audit_init_1",
+      "timestamp": 1791824230261,
+      "actorId": "system",
+      "actorUsername": "system",
+      "action": "SYSTEM_INITIALIZATION",
+      "details": "تمت تهيئة الحسابات الأساسية (حساب المالك Sam برصيد 1,000 USD وحساب Eslam برصيد 0 USD والسجلات التاريخية الأربعة)."
+    }
+  ],
+  "errorLogs": [],
+  "settings": {
+    "maxLockDurationDays": 30,
+    "allowCustomLocks": true,
+    "defaultNetworkFeeUsdt": 0,
+    "historicalYear": null,
+    "historicalBalanceImpact": "display_only",
+    "initialBalances": {
+      "BTC": 0,
+      "ETH": 0,
+      "USDT": 0
+    }
+  }
+}

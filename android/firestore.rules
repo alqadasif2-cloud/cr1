@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Users collection: users can read public profile (name, username), only owner can edit profile info
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['walletId']);
+      allow delete: if false; // Disallow deletion
+    }
+
+    // Wallets collection:
+    // Any authenticated user can read public addresses and receiveCodes to transfer funds.
+    // CRITICAL SECURITY: Wallets and balances can NEVER be modified directly by client writes!
+    // All balance deductions, transfers, and unlocking MUST be performed exclusively by Cloud Functions with Admin SDK.
+    match /wallets/{walletId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Strictly restricted to Cloud Functions
+    }
+
+    // Transactions collection:
+    // Users can read transactions where they are sender or recipient.
+    // Client can NOT create or modify transactions directly. Must go through Cloud Functions.
+    match /transactions/{txId} {
+      allow read: if isAuthenticated() && (
+        resource.data.senderUserId == request.auth.uid ||
+        resource.data.recipientUserId == request.auth.uid
+      );
+      allow write: if false; // Strictly restricted to Cloud Functions
+    }
+
+    // Notifications:
+    // Users can read and mark their own notifications as read.
+    match /notifications/{notifId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid &&
+                    request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create: if false; // Created via Cloud Functions
+      allow delete: if false;
+    }
+  }
+}
