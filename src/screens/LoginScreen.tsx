@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Lock, User as UserIcon, ArrowRight, ArrowLeft, AlertCircle, KeyRound, Crown } from 'lucide-react';
+import { Shield, Lock, User as UserIcon, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react';
 import { api } from '../services/api';
 import { translations, Language } from '../i18n/translations';
 import { User, UserWallet } from '../types';
@@ -24,7 +24,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username.trim() || !password) {
-      setError(t.fillAllFields);
+      setError(lang === 'ar' ? 'يرجى إدخال اسم المستخدم وكلمة المرور' : 'Please enter username and password');
       return;
     }
 
@@ -34,40 +34,26 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
       const data = await api.login(username.trim(), password);
       onSuccess(data.user, data.wallet);
     } catch (err: any) {
-      setError(err.message || 'فشل في تسجيل الدخول');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleQuickDemo = async (demoUsername: string, demoPass: string) => {
-    try {
-      setLoading(true);
-      setError('');
-      setUsername(demoUsername);
-      setPassword(demoPass);
-      const data = await api.login(demoUsername, demoPass);
-      onSuccess(data.user, data.wallet);
-    } catch (err: any) {
-      setError(err.message || 'فشل في تسجيل الدخول');
+      // Generic secure error message to avoid user enumeration
+      setError(lang === 'ar' ? 'اسم المستخدم أو كلمة المرور غير صحيحة' : 'Invalid username or password');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex-1 bg-[#0b0f17] p-5 flex flex-col justify-between overflow-y-auto">
-      <div className="pt-2">
-        {/* Header Icon */}
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-500 p-0.5 mb-5 mx-auto shadow-lg flex items-center justify-center">
+    <div className="flex-1 bg-[#0b0f17] p-6 flex flex-col justify-between overflow-y-auto">
+      <div className="pt-4 max-w-sm mx-auto w-full">
+        {/* Brand Icon */}
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-400 p-0.5 mb-5 mx-auto shadow-lg shadow-emerald-950/40 flex items-center justify-center">
           <div className="w-full h-full bg-[#0d131f] rounded-[14px] flex items-center justify-center">
             <Shield className="w-8 h-8 text-emerald-400" />
           </div>
         </div>
 
-        <h2 className="text-xl font-bold text-center text-white mb-1">{t.welcomeBack}</h2>
-        <p className="text-xs text-center text-gray-400 mb-5">
-          {lang === 'ar' ? 'قم بتسجيل الدخول إلى محفظتك المشفرة الآمنة' : 'Sign in to access your secure wallet'}
+        <h2 className="text-xl font-extrabold text-center text-white mb-1 tracking-tight">Crypto Wallet</h2>
+        <p className="text-xs text-center text-gray-400 mb-6">
+          {lang === 'ar' ? 'تسجيل الدخول الآمن إلى محفظتك الرقمية' : 'Secure Sign-In to your digital wallet'}
         </p>
 
         {error && (
@@ -77,39 +63,41 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-3.5">
+        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1.5">{t.username}</label>
+            <label className="block text-xs font-semibold text-gray-300 mb-1.5">{t.username}</label>
             <div className="relative">
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder={lang === 'ar' ? 'أدخل اسم المستخدم (مثال: Sam أو Eslam Alqadasi)' : 'Enter username (e.g. Sam, Eslam Alqadasi)'}
-                className="w-full bg-[#131b26] border border-gray-700/80 rounded-xl py-2.5 px-3 ps-10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500"
+                placeholder={lang === 'ar' ? 'أدخل اسم المستخدم' : 'Enter username'}
+                autoComplete="off"
+                className="w-full bg-[#131b26] border border-gray-700/80 rounded-xl py-3 px-3 ps-10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition"
               />
-              <UserIcon className="w-4 h-4 text-gray-400 absolute start-3 top-3" />
+              <UserIcon className="w-4 h-4 text-gray-400 absolute start-3 top-3.5" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1.5">{t.password}</label>
+            <label className="block text-xs font-semibold text-gray-300 mb-1.5">{t.password}</label>
             <div className="relative">
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-[#131b26] border border-gray-700/80 rounded-xl py-2.5 px-3 ps-10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500"
+                autoComplete="current-password"
+                className="w-full bg-[#131b26] border border-gray-700/80 rounded-xl py-3 px-3 ps-10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition"
               />
-              <Lock className="w-4 h-4 text-gray-400 absolute start-3 top-3" />
+              <Lock className="w-4 h-4 text-gray-400 absolute start-3 top-3.5" />
             </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-semibold rounded-xl text-xs transition shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 mt-2"
+            className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold rounded-xl text-xs transition shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 mt-2"
           >
             {loading ? (
               <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
@@ -121,56 +109,12 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
             )}
           </button>
         </form>
-
-        {/* Quick Sign-In for Test Profiles */}
-        <div className="mt-6 pt-4 border-t border-gray-800/80">
-          <div className="text-[11px] font-semibold text-gray-400 text-center mb-2.5 flex items-center justify-center gap-1.5">
-            <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
-            <span>{lang === 'ar' ? 'تسجيل دخول سريع للحسابات المعتمدة:' : 'Quick Sign-in for Configured Accounts:'}</span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            {/* Sam (Owner) */}
-            <button
-              onClick={() => handleQuickDemo('Sam', '1234')}
-              disabled={loading}
-              className="p-3 bg-[#141e2c] hover:bg-[#1a273a] border border-emerald-500/30 rounded-xl text-left rtl:text-right transition group relative"
-            >
-              <div className="flex items-center gap-1 text-xs font-bold text-amber-400">
-                <Crown className="w-3.5 h-3.5 text-amber-400" />
-                <span>Sam (المالك)</span>
-              </div>
-              <div className="text-[10px] text-gray-300 font-mono mt-0.5">user: Sam</div>
-              <div className="text-[9px] text-emerald-400 font-semibold mt-1">
-                رصيد: 1,000.00 USD
-              </div>
-              <div className="text-[9px] text-gray-400 mt-0.5">كلمة المرور: 1234</div>
-            </button>
-
-            {/* Eslam Alqadasi (User) */}
-            <button
-              onClick={() => handleQuickDemo('Eslam Alqadasi', 'Eslam@2es')}
-              disabled={loading}
-              className="p-3 bg-[#141e2c] hover:bg-[#1a273a] border border-blue-500/30 rounded-xl text-left rtl:text-right transition group relative"
-            >
-              <div className="flex items-center gap-1 text-xs font-bold text-blue-400">
-                <UserIcon className="w-3.5 h-3.5 text-blue-400" />
-                <span>Eslam (مستخدم)</span>
-              </div>
-              <div className="text-[10px] text-gray-300 font-mono mt-0.5">Eslam Alqadasi</div>
-              <div className="text-[9px] text-gray-300 font-semibold mt-1">
-                رصيد: 0.00 USD
-              </div>
-              <div className="text-[9px] text-gray-400 mt-0.5">كلمة المرور: Eslam@2es</div>
-            </button>
-          </div>
-        </div>
       </div>
 
-      <div className="pt-4 pb-1 text-center">
+      <div className="pt-6 pb-2 text-center">
         <button
           onClick={onGoToRegister}
-          className="text-xs text-gray-400 hover:text-emerald-400 transition"
+          className="text-xs text-gray-400 hover:text-emerald-400 transition font-medium"
         >
           {t.loginPrompt}
         </button>

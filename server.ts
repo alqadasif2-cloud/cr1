@@ -935,11 +935,16 @@ app.get('/api/wallet', requireAuth, (req, res) => {
   const wallet = db.wallets.find((w) => w.userId === user.id);
   if (!wallet) return res.status(404).json({ error: 'المحفظة غير موجودة' });
 
-  const btcTotal = wallet.balances.BTC.available + wallet.balances.BTC.locked;
-  const ethTotal = wallet.balances.ETH.available + wallet.balances.ETH.locked;
-  const usdtTotal = wallet.balances.USDT.available + wallet.balances.USDT.locked;
+  const btcAvailable = wallet.balances.BTC.available;
+  const btcLocked = wallet.balances.BTC.locked;
+  const ethAvailable = wallet.balances.ETH.available;
+  const ethLocked = wallet.balances.ETH.locked;
+  const usdtAvailable = wallet.balances.USDT.available;
+  const usdtLocked = wallet.balances.USDT.locked;
 
-  const totalUsdtEquivalent = (btcTotal * 68500) + (ethTotal * 3450) + usdtTotal;
+  const availableUsdtEquivalent = (btcAvailable * 68500) + (ethAvailable * 3450) + usdtAvailable;
+  const lockedUsdtEquivalent = (btcLocked * 68500) + (ethLocked * 3450) + usdtLocked;
+  const totalUsdtEquivalent = availableUsdtEquivalent + lockedUsdtEquivalent;
 
   res.json({
     wallet,
@@ -949,6 +954,8 @@ app.get('/api/wallet', requireAuth, (req, res) => {
       USDT: 1.0,
     },
     totalUsdtEquivalent,
+    availableUsdtEquivalent,
+    lockedUsdtEquivalent,
   });
 });
 
@@ -1284,7 +1291,7 @@ app.get('/api/transactions', requireAuth, (req, res) => {
   if (type === 'sent') {
     list = list.filter((t) => t.senderUserId === user.id && !t.isRefund);
   } else if (type === 'received') {
-    list = list.filter((t) => t.recipientUserId === user.id);
+    list = list.filter((t) => t.recipientUserId === user.id && !t.isRefund);
   } else if (type === 'locked') {
     list = list.filter((t) => t.status === 'LOCKED');
   } else if (type === 'refund') {

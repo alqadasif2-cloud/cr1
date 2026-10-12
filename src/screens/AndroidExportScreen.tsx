@@ -311,6 +311,22 @@ dependencies {
           <li>{lang === 'ar' ? 'اضغط Run لتشغيل التطبيق على الهاتف أو المحاكي.' : 'Click Run to launch on device or emulator.'}</li>
         </ol>
       </div>
+
+      {/* GitHub Actions CI/CD Card */}
+      <div className="bg-[#101724] border border-emerald-500/20 rounded-2xl p-3.5 text-xs text-gray-400 mt-3">
+        <div className="flex items-center gap-1.5 text-emerald-400 font-bold mb-1.5">
+          <FolderGit2 className="w-4 h-4" />
+          <span>{lang === 'ar' ? 'بناء APK تلقائياً عبر GitHub Actions' : 'Automated APK Build via GitHub Actions'}</span>
+        </div>
+        <p className="text-[11px] text-gray-300 leading-relaxed mb-2">
+          {lang === 'ar'
+            ? 'تم إعداد مسار العمل .github/workflows/build-apk.yml جاهزاً. بمجرد دفع المشروع (Push) إلى GitHub أو تشغيله يدوياً عبر علامة التبويب Actions، سيتم بناء ملف APK وتوفيره للتحميل المباشر.'
+            : 'The CI workflow .github/workflows/build-apk.yml is configured. Once pushed to GitHub or triggered in the Actions tab, it compiles and provides a downloadable debug APK.'}
+        </p>
+        <div className="bg-[#0b0f17] p-2 rounded-xl border border-gray-800 text-[10px] font-mono-code text-gray-400">
+          .github/workflows/build-apk.yml
+        </div>
+      </div>
     </div>
   );
 };

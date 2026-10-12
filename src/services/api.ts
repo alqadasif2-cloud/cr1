@@ -78,7 +78,13 @@ export const api = {
     return res.json();
   },
 
-  async getWallet(): Promise<{ wallet: UserWallet; rates: Record<string, number>; totalUsdtEquivalent: number }> {
+  async getWallet(): Promise<{
+    wallet: UserWallet;
+    rates: Record<string, number>;
+    totalUsdtEquivalent: number;
+    availableUsdtEquivalent: number;
+    lockedUsdtEquivalent: number;
+  }> {
     const res = await fetch('/api/wallet', { headers: getHeaders() });
     if (!res.ok) throw new Error('فشل في جلب بيانات المحفظة');
     return res.json();

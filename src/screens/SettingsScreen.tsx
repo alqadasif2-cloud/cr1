@@ -24,7 +24,6 @@ interface SettingsScreenProps {
   onToggleFrameMode: () => void;
   onNavigate: (screen: string) => void;
   onLogout: () => void;
-  onSwitchUser: (username: string) => void;
 }
 
 export const SettingsScreen: React.FC<SettingsScreenProps> = ({
@@ -36,7 +35,6 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   onToggleFrameMode,
   onNavigate,
   onLogout,
-  onSwitchUser,
 }) => {
   const t = translations[lang];
   const isOwner = user.role === 'owner';
@@ -87,49 +85,6 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </div>
         </div>
         <ChevronRight className="w-4 h-4 text-gray-400 rtl:rotate-180" />
-      </div>
-
-      {/* Fast User Switcher between Sam (Owner) & Eslam (User) for Testing */}
-      <div className="bg-[#121926] border border-amber-500/20 rounded-2xl p-4">
-        <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400 mb-1">
-          <Users className="w-4 h-4" />
-          <span>{lang === 'ar' ? 'تبديل الحساب للاختبار السريع:' : 'Switch Account for Testing:'}</span>
-        </div>
-        <p className="text-[11px] text-gray-400 mb-3">
-          {lang === 'ar'
-            ? 'يمكنك التبديل فورياً بين حساب المالك Sam وحساب المستخدم المستقل Eslam Alqadasi لاختبار التحويلات وصلاحيات الإدارة.'
-            : 'Instantly toggle between Owner Sam and User Eslam to test permissions and transfers.'}
-        </p>
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <button
-            onClick={() => onSwitchUser('sam')}
-            className={`p-2.5 rounded-xl border text-left rtl:text-right transition ${
-              user.username.toLowerCase() === 'sam'
-                ? 'bg-amber-500/20 border-amber-500 text-amber-300 font-bold'
-                : 'bg-[#141f2e] border-gray-800 text-gray-300 hover:border-gray-700'
-            }`}
-          >
-            <div className="font-semibold text-xs flex items-center gap-1">
-              <Crown className="w-3.5 h-3.5 text-amber-400" />
-              <span>Sam (المالك)</span>
-            </div>
-            <div className="text-[10px] text-gray-400 font-mono">1,000 USD</div>
-          </button>
-          <button
-            onClick={() => onSwitchUser('eslam alqadasi')}
-            className={`p-2.5 rounded-xl border text-left rtl:text-right transition ${
-              user.username.toLowerCase().includes('eslam')
-                ? 'bg-blue-500/20 border-blue-500 text-blue-300 font-bold'
-                : 'bg-[#141f2e] border-gray-800 text-gray-300 hover:border-gray-700'
-            }`}
-          >
-            <div className="font-semibold text-xs flex items-center gap-1">
-              <UserIcon className="w-3.5 h-3.5 text-blue-400" />
-              <span>Eslam (مستخدم)</span>
-            </div>
-            <div className="text-[10px] text-gray-400 font-mono">0.00 USD</div>
-          </button>
-        </div>
       </div>
 
       {/* Owner Admin Panel Entry */}

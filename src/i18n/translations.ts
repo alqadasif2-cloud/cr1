@@ -4,7 +4,6 @@ export const translations = {
   ar: {
     appName: 'Crypto Wallet',
     appTagline: 'محفظة العملات المشفرة الذكية والآمنة',
-    simulationNotice: 'نظام محاكاة تعليمي مستقل: جميع الأرصدة والعناوين والمعاملات افتراضية ولا ترتبط بشبكات البلوكشين الحقيقية.',
     
     // Auth
     login: 'تسجيل الدخول',
@@ -128,7 +127,6 @@ export const translations = {
   en: {
     appName: 'Crypto Wallet',
     appTagline: 'Smart & Secure Crypto Wallet Experience',
-    simulationNotice: 'Educational Simulation: All balances, 0x addresses, and transactions are simulated and not connected to real blockchains.',
 
     // Auth
     login: 'Login',

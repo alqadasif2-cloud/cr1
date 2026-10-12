@@ -25,6 +25,8 @@ interface HomeScreenProps {
   unreadNotifsCount: number;
   rates: Record<string, number>;
   totalUsdtEquivalent: number;
+  availableUsdtEquivalent?: number;
+  lockedUsdtEquivalent?: number;
   onNavigate: (screen: string, params?: any) => void;
   onOpenQr: () => void;
   lang: Language;
@@ -37,6 +39,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   unreadNotifsCount,
   rates,
   totalUsdtEquivalent,
+  availableUsdtEquivalent,
+  lockedUsdtEquivalent,
   onNavigate,
   onOpenQr,
   lang,
@@ -171,7 +175,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <div className="text-[10px] text-gray-400 mb-0.5">{t.available}</div>
             <div className="font-semibold text-emerald-400 font-mono-code flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              {wallet.balances.USDT.available.toLocaleString()} USDT
+              ${(availableUsdtEquivalent !== undefined ? availableUsdtEquivalent : wallet.balances.USDT.available).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
           </div>
           <div>
@@ -181,7 +185,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </div>
             <div className="font-semibold text-amber-400 font-mono-code flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-              {wallet.balances.USDT.locked.toLocaleString()} USDT
+              ${(lockedUsdtEquivalent !== undefined ? lockedUsdtEquivalent : wallet.balances.USDT.locked).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
           </div>
         </div>
