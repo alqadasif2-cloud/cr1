@@ -23,17 +23,20 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Set up Android SDK & Accept Licenses
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
 
-      - name: Generate Gradle Wrapper if Missing
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Ensure Gradle Wrapper
         working-directory: ./android
         run: |
           if [ ! -f "gradlew" ]; then
-            echo "Installing Gradle to generate gradlew wrapper..."
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq gradle || true
-            gradle wrapper || true
+            echo "Generating Gradle wrapper..."
+            gradle wrapper --gradle-version 8.9 || true
           fi
           if [ -f "gradlew" ]; then
             chmod +x gradlew
